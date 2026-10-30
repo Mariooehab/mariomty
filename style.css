@@ -1,0 +1,836 @@
+
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+
+    background:
+        radial-gradient(circle at top left, #46204f, transparent 40%),
+        radial-gradient(circle at bottom right, #471c3d, transparent 40%),
+        #100b19;
+}
+
+
+/* =========================
+   LOGIN PAGE
+========================= */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 60px;
+}
+
+.login-text {
+    text-align: center;
+}
+
+.profile-image-container {
+    width: 240px;
+    height: 240px;
+    position: relative;
+    margin: auto auto 30px;
+}
+
+.profile-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #ff8fbd;
+    position: relative;
+    z-index: 2;
+}
+
+.profile-glow {
+    position: absolute;
+    inset: -15px;
+    border-radius: 50%;
+    background: #ff4fa3;
+    filter: blur(35px);
+    opacity: .5;
+}
+
+.login-text h1 {
+    color: #ffacd0;
+    margin-bottom: 12px;
+}
+
+.login-text p {
+    color: #d6b9d5;
+}
+
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+.login-card {
+    width: 330px;
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 25px;
+    background: rgba(255,255,255,.07);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 15px 50px rgba(0,0,0,.35);
+    text-align: center;
+}
+
+.login-card > img {
+    width: 100%;
+    height: 115px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px;
+    border: 2px solid #ff8fbd;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.login-card h2 {
+    color: #ffacd0;
+    font-size: 20px;
+}
+
+.login-card > p {
+    color: #cbb5ce;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+
+/* =========================
+   PASSWORD DOTS
+========================= */
+
+.password-dots {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #57445d;
+    transition: .2s;
+}
+
+.dot.active {
+    background: #ff78b3;
+    box-shadow: 0 0 12px #ff78b3;
+}
+
+
+/* =========================
+   KEYPAD
+========================= */
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.keypad button {
+    height: 48px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 12px;
+    background: rgba(255,255,255,.08);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: .2s;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+.keypad button:active {
+    background: #bd5591;
+    transform: scale(.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .keypad button:hover {
+        background: #bd5591;
+        transform: translateY(-2px);
+    }
+}
+
+.keypad button:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+}
+
+#loginMessage {
+    min-height: 18px;
+    margin-top: 15px;
+}
+
+
+/* =========================
+   LOGIN ANIMATION
+========================= */
+
+.login-exit {
+    animation: loginExit .55s ease forwards;
+}
+
+.page-enter {
+    animation: birthdayEnter .9s ease both;
+}
+
+@keyframes loginExit {
+    to {
+        opacity: 0;
+        transform: scale(1.06);
+        filter: blur(8px);
+    }
+}
+
+@keyframes birthdayEnter {
+    from {
+        opacity: 0;
+        transform: scale(.96) translateY(20px);
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
+}
+
+
+/* =========================
+   BIRTHDAY PAGE
+========================= */
+
+.birthday-page {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 45px 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+
+/* BACKGROUND DECORATION */
+
+.birthday-page::before,
+.birthday-page::after {
+    content: "♡";
+    position: absolute;
+    color: rgba(255,143,189,.12);
+    font-size: 220px;
+    pointer-events: none;
+}
+
+.birthday-page::before {
+    top: -70px;
+    left: -50px;
+}
+
+.birthday-page::after {
+    bottom: -100px;
+    right: -40px;
+}
+
+
+/* =========================
+   BIRTHDAY HEADER
+========================= */
+
+.birthday-header {
+    text-align: center;
+    margin-bottom: 45px;
+    position: relative;
+    z-index: 1;
+    animation: headerEnter .9s ease both;
+}
+
+.birthday-tag {
+    display: inline-block;
+    color: #ffacd0;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.birthday-header h1 {
+    color: #ffacd0;
+    font-size: clamp(35px, 6vw, 55px);
+    text-shadow: 0 0 30px rgba(255,100,170,.45);
+    margin-bottom: 12px;
+}
+
+.birthday-header p {
+    color: #d8b8d5;
+    font-size: 15px;
+}
+
+
+/* =========================
+   MEMORY CARDS
+========================= */
+
+.birthday-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 300px));
+    gap: 35px;
+    width: 100%;
+    max-width: 665px;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.memory-card {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    animation: cardEnter .9s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.memory-card:nth-child(2) {
+    animation-delay: .2s;
+}
+
+
+/* =========================
+   FULL CARD IMAGE
+========================= */
+
+.card-image {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    padding: 0;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #51305e;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.35),
+        0 0 25px rgba(255,120,180,.15);
+
+    transition:
+        transform .4s,
+        box-shadow .4s;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 22px;
+    transition: transform .6s;
+}
+
+
+/* IMAGE HOVER */
+
+.memory-card:hover .card-image {
+    transform: translateY(-9px) rotate(-1deg);
+    box-shadow: 0 22px 45px rgba(255,100,170,.2);
+}
+
+.memory-card:hover .card-image img {
+    transform: scale(1.06);
+}
+
+
+/* IMAGE OVERLAY */
+
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 55px;
+    background: rgba(50,10,40,.18);
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+}
+
+.memory-card:hover .image-overlay {
+    opacity: 1;
+}
+
+
+/* CARD TITLES */
+
+.memory-card h2 {
+    color: #ffacd0;
+    font-size: 19px;
+    margin-top: 22px;
+    margin-bottom: 9px;
+    text-shadow: 0 0 15px rgba(255,100,170,.2);
+}
+
+.memory-card p {
+    color: #d8b8d5;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   SPECIAL LOVE MESSAGE
+========================= */
+
+.love-message {
+    width: min(850px, 90%);
+    margin: 55px auto 20px;
+    padding: 40px 35px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255,143,189,.12),
+        rgba(255,255,255,.045)
+    );
+
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 28px;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.25),
+        0 0 30px rgba(255,100,170,.08);
+
+    animation: messageEnter 1s .3s both;
+}
+
+.message-icon {
+    font-size: 42px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 12px rgba(255,143,189,.4));
+}
+
+.love-message h2 {
+    color: #ffacd0;
+    font-size: 27px;
+    margin-bottom: 22px;
+    text-shadow: 0 0 20px rgba(255,100,170,.25);
+}
+
+.love-message p {
+    max-width: 680px;
+    margin: auto;
+    color: #f3dce9;
+    font-size: 15px;
+    line-height: 2.1;
+    white-space: pre-line;
+}
+
+.message-signature {
+    margin-top: 28px;
+    color: #ff8fbd;
+    font-size: 21px;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: 0 0 15px rgba(255,100,170,.3);
+}
+
+@keyframes messageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.birthday-footer {
+    text-align: center;
+    color: #cda2c2;
+    margin-top: 50px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    animation: headerEnter 1s .5s both;
+    position: relative;
+    z-index: 1;
+}
+
+.birthday-footer div {
+    color: #ff8fbd;
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(55px) scale(.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes headerEnter {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media (max-width: 900px) {
+    .login-container {
+        gap: 35px;
+    }
+
+    .profile-image-container {
+        width: 190px;
+        height: 190px;
+    }
+
+    .birthday-cards {
+        max-width: 620px;
+        gap: 25px;
+    }
+
+    .card-image {
+        height: 320px;
+    }
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 700px) {
+    .login-page {
+        padding: 25px 18px;
+    }
+
+    .login-container {
+        flex-direction: column;
+        justify-content: center;
+        gap: 35px;
+    }
+
+    .profile-image-container {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 20px;
+    }
+
+    .login-text h1 {
+        font-size: 23px;
+    }
+
+    .login-text p {
+        font-size: 13px;
+    }
+
+    .login-card {
+        width: min(330px, 100%);
+        padding: 25px;
+    }
+
+    .birthday-page {
+        justify-content: flex-start;
+        padding: 45px 18px 35px;
+    }
+
+    .birthday-header {
+        margin-bottom: 35px;
+    }
+
+    .birthday-header h1 {
+        font-size: clamp(32px, 9vw, 45px);
+    }
+
+    .birthday-tag {
+        font-size: 10px;
+        letter-spacing: 3px;
+    }
+
+    .birthday-cards {
+        grid-template-columns: minmax(0, 1fr);
+        width: 100%;
+        max-width: 380px;
+        gap: 35px;
+    }
+
+    .card-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 5;
+    }
+
+    .memory-card h2 {
+        font-size: 18px;
+        margin-top: 17px;
+    }
+
+    .love-message {
+        width: 100%;
+        margin-top: 45px;
+        padding: 30px 22px;
+        border-radius: 23px;
+    }
+
+    .love-message h2 {
+        font-size: 23px;
+    }
+
+    .love-message p {
+        font-size: 14px;
+        line-height: 1.95;
+    }
+
+    .message-icon {
+        font-size: 36px;
+    }
+
+    .message-signature {
+        font-size: 19px;
+    }
+
+    .birthday-footer {
+        margin-top: 40px;
+    }
+}
+
+
+/* ==================================================
+   SMALL MOBILE
+================================================== */
+
+@media (max-width: 400px) {
+    .login-card {
+        padding: 20px;
+    }
+
+    .profile-image-container {
+        width: 125px;
+        height: 125px;
+    }
+
+    .birthday-page {
+        padding: 35px 15px;
+    }
+
+    .birthday-header {
+        margin-bottom: 28px;
+    }
+
+    .birthday-header h1 {
+        font-size: 32px;
+    }
+
+    .birthday-cards {
+        max-width: 100%;
+        gap: 30px;
+    }
+
+    .card-image {
+        aspect-ratio: 4 / 5;
+    }
+
+    .memory-card h2 {
+        font-size: 17px;
+    }
+
+    .memory-card p {
+        font-size: 12px;
+    }
+
+    .love-message {
+        padding: 27px 18px;
+    }
+
+    .love-message h2 {
+        font-size: 21px;
+    }
+
+    .love-message p {
+        font-size: 13px;
+    }
+}
+
+
+/* ==================================================
+   EXTRA SMALL PHONES
+================================================== */
+
+@media (max-width: 350px) {
+    .login-card {
+        padding: 16px;
+    }
+
+    .keypad {
+        gap: 7px;
+    }
+
+    .keypad button {
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .birthday-header h1 {
+        font-size: 29px;
+    }
+
+    .card-image {
+        aspect-ratio: 3 / 4;
+    }
+
+    .love-message {
+        padding: 24px 15px;
+    }
+
+    .love-message h2 {
+        font-size: 19px;
+    }
+}
+
+
+/* ==================================================
+   LANDSCAPE MOBILE
+================================================== */
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .login-page {
+        padding: 20px;
+    }
+
+    .login-container {
+        flex-direction: row;
+        gap: 25px;
+    }
+
+    .profile-image-container {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+    }
+
+    .login-card {
+        padding: 15px;
+    }
+
+    .login-card > img {
+        height: 65px;
+        margin-bottom: 10px;
+    }
+
+    .password-dots {
+        margin: 12px 0;
+    }
+
+    .keypad {
+        gap: 6px;
+    }
+
+    .keypad button {
+        height: 35px;
+    }
+
+    .birthday-page {
+        padding: 25px 15px;
+    }
+
+    .birthday-header {
+        margin-bottom: 20px;
+    }
+
+    .birthday-cards {
+        grid-template-columns: repeat(2, minmax(0, 220px));
+        gap: 20px;
+    }
+
+    .card-image {
+        height: 220px;
+    }
+
+    .love-message {
+        margin-top: 35px;
+        padding: 25px;
+    }
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
