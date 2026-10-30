@@ -50,6 +50,27 @@ body {
     text-align: center;
 }
 
+
+/* Apple Emoji Style */
+/* Emoji Images */
+.apple-emoji {
+    width: 1.2em;
+    height: 1.2em;
+    display: inline-block;
+    vertical-align: -0.2em;
+    object-fit: contain;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.message-icon .apple-emoji {
+    width: 42px;
+    height: 42px;
+    vertical-align: middle;
+}
+
+
 .profile-image-container {
     width: 240px;
     height: 240px;

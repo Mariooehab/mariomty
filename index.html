@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Little Story ❤️</title>
+    <title>To My Little Girl ❤</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -22,7 +22,12 @@
                     <img src="images/baby.png" alt="Her Photo">
                 </div>
 
-                <h1>Welcome Mariomty ❤️</h1>
+               <h1>
+    Welcome Mariomty
+    <img class="apple-emoji"
+         src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/2764.svg"
+         alt="❤️">
+</h1>
                 <p>A little surprise is waiting for you...</p>
 
             </div>
@@ -78,7 +83,12 @@
                 A SPECIAL DAY FOR YOU ✨
             </span>
 
-            <h1>Happy Birthday ❤️</h1>
+            <h1>
+    Happy Birthday
+    <img class="apple-emoji"
+         src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/2764.svg"
+         alt="❤️">
+</h1>
 
             <p>
                 A little collection of beautiful memories
@@ -148,7 +158,11 @@
                 <!-- SPECIAL LOVE MESSAGE -->
        <div class="love-message">
 
-    <div class="message-icon">💌</div>
+   <div class="message-icon">
+    <img class="apple-emoji"
+         src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/1F48C.svg"
+         alt="💌">
+</div>
 
     <h2>يلا بسم الله</h2>
 
@@ -226,9 +240,83 @@
 
     </section>
 
+    <script>
+/* =========================
+   AUTO EMOJI CONVERTER
+========================= */
+
+const emojiImages = {
+    "❤️": "2764",
+    "❤": "2764",
+    "💗": "1F497",
+    "💌": "1F48C",
+    "✨": "2728"
+};
+
+function convertEmojis() {
+    const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT
+    );
+
+    const textNodes = [];
+
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+
+        if (
+            node.parentElement &&
+            !["SCRIPT", "STYLE", "TEXTAREA", "INPUT"].includes(
+                node.parentElement.tagName
+            )
+        ) {
+            textNodes.push(node);
+        }
+    }
+
+    textNodes.forEach(node => {
+        const text = node.nodeValue;
+        const regex = /(❤️|❤|💗|💌|✨)/g;
+
+        if (!regex.test(text)) return;
+
+        regex.lastIndex = 0;
+
+        const fragment = document.createDocumentFragment();
+        const parts = text.split(regex);
+
+        parts.forEach(part => {
+            if (emojiImages[part]) {
+                const img = document.createElement("img");
+
+                img.className = "apple-emoji";
+                img.src =
+                    "https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/" +
+                    emojiImages[part] + ".svg";
+
+                img.alt = part;
+                img.loading = "lazy";
+
+                fragment.appendChild(img);
+            } else if (part) {
+                fragment.appendChild(
+                    document.createTextNode(part)
+                );
+            }
+        });
+
+        node.parentNode.replaceChild(fragment, node);
+    });
+}
+
+convertEmojis();
+</script>
+
 
     <!-- JAVASCRIPT -->
     <script>
+
+        
 
         /* =========================
            LOGIN SYSTEM
