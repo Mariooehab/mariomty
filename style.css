@@ -1,8 +1,4 @@
 
-/* =========================
-   GLOBAL
-========================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -81,7 +77,7 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    border: 4px solid #ff8fbd;
+    border: 4px solid #9c08f1;
     position: relative;
     z-index: 2;
 }
@@ -90,18 +86,18 @@ body {
     position: absolute;
     inset: -15px;
     border-radius: 50%;
-    background: #ff4fa3;
+    background: #b904f0;
     filter: blur(35px);
     opacity: .5;
 }
 
 .login-text h1 {
-    color: #ffacd0;
+    color: #9405cc;
     margin-bottom: 12px;
 }
 
 .login-text p {
-    color: #d6b9d5;
+    color: #f7f4f7;
 }
 
 /* =========================
@@ -127,13 +123,13 @@ body {
     object-fit: cover;
     object-position: center;
     border-radius: 15px;
-    border: 2px solid #ff8fbd;
+    border: 2px solid #9304f1;
     margin-bottom: 20px;
     display: block;
 }
 
 .login-card h2 {
-    color: #ffacd0;
+    color: #c104fa;
     font-size: 20px;
 }
 
@@ -181,8 +177,8 @@ body {
 }
 
 .dot.active {
-    background: #ff78b3;
-    box-shadow: 0 0 12px #ff78b3;
+    background: #c104fa;
+    box-shadow: 0 0 12px #c104fa;
 }
 
 /* =========================
@@ -209,13 +205,13 @@ body {
 }
 
 .keypad button:active {
-    background: #bd5591;
+    background: #c104fa;
     transform: scale(.95);
 }
 
 @media (hover: hover) and (pointer: fine) {
     .keypad button:hover {
-        background: #bd5591;
+        background: #c104fa;
         transform: translateY(-2px);
     }
 }
@@ -903,7 +899,7 @@ body {
 
 .message-signature {
     margin-top: 28px;
-    color: #ff8fbd;
+    color: #9c08f1;
     font-size: 21px;
     font-weight: bold;
     font-style: italic;
@@ -1406,7 +1402,7 @@ body {
 }
 
 .love-message-lock h2 {
-    color: #ffacd0;
+    color: #acfcff;
     font-size: 27px;
     margin-bottom: 18px;
     text-shadow: 0 0 20px rgba(255,100,170,.25);
@@ -1672,7 +1668,7 @@ body {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #ff6b9d, #bd5591);
+    background: linear-gradient(135deg, #c104fa, #c104fa);
     font-size: 16px;
 }
 
@@ -1741,14 +1737,14 @@ body {
     border: 1px solid rgba(255,255,255,.4);
     border-radius: 50%;
 
-    background: linear-gradient(135deg, #ff6b9d, #bd5591);
+    background: linear-gradient(135deg, #c104fa, #c104fa);
 
     color: white;
     font-size: 24px;
 
     cursor: pointer;
 
-    box-shadow: 0 8px 30px rgba(255,107,157,.4);
+    box-shadow: 0 8px 30px rgba(193, 4, 250, .4);
 
     position: relative;
 
@@ -1778,11 +1774,11 @@ body {
 
 @keyframes bubblePulse {
     0%, 100% {
-        box-shadow: 0 8px 30px rgba(255,107,157,.4);
+        box-shadow: 0 8px 30px rgba(236, 3, 217, 0.4);
     }
 
     50% {
-        box-shadow: 0 8px 40px rgba(255,107,157,.8);
+        box-shadow: 0 8px 40px rgba(236, 3, 217, 0.4);
     }
 }
 
@@ -1804,7 +1800,7 @@ body {
         rgba(25,15,35,.97)
     );
 
-    border: 1px solid rgba(255,143,189,.4);
+    border: 1px solid rgba(241, 10, 241, 0.4);
     border-radius: 25px;
 
     backdrop-filter: blur(20px);
@@ -1840,7 +1836,7 @@ body {
 }
 
 .music-small-title {
-    color: #ff9fc4;
+    color: #c104fa;
     font-size: 9px;
     letter-spacing: 3px;
 }
@@ -1851,7 +1847,7 @@ body {
 }
 
 .music-panel-title h3 span {
-    color: #ff6b9d;
+    color: #c104fa;
 }
 
 .music-close {
@@ -1913,7 +1909,7 @@ body {
 
     border-radius: 50%;
 
-    background: linear-gradient(135deg, #ff6b9d, #bd5591);
+    background: linear-gradient(135deg, #c104fa, #c104fa);
 
     display: flex;
     align-items: center;
@@ -1922,7 +1918,7 @@ body {
     color: white;
     font-size: 18px;
 
-    border: 4px solid #e5a2bd;
+    border: 4px solid #c104fa;
 }
 
 .music-widget.playing .disc-ring {
@@ -1976,7 +1972,7 @@ body {
 
 .music-track-info p {
     margin: 0;
-    color: #ffb4d0;
+    color: #f8f8f8;
     font-size: 11px;
 }
 
@@ -1998,7 +1994,7 @@ body {
     height: 5px;
 
     border-radius: 5px;
-    background: #ff8fbd;
+    background: #c104fa;
 }
 
 .music-widget.playing .music-wave span {
@@ -2048,14 +2044,14 @@ body {
 
 .music-controls button:hover {
     transform: scale(1.12);
-    background: rgba(255,143,189,.3);
+    background: rgba(193, 4, 250, 0.3);
 }
 
 .music-controls .music-play {
     width: 50px;
     height: 50px;
 
-    background: linear-gradient(135deg,#ff6b9d,#bd5591);
+    background: linear-gradient(135deg,#c104fa,#c104fa);
 
     font-size: 18px;
 }
@@ -2070,13 +2066,13 @@ body {
 
     margin-top: 22px;
 
-    color: #ffacd0;
+    color: #c104fa;
     font-size: 13px;
 }
 
 .music-volume input {
     width: 120px;
-    accent-color: #ff8fbd;
+    accent-color: #c104fa;
     cursor: pointer;
 }
 
@@ -2085,7 +2081,7 @@ body {
 .music-footer {
     text-align: center;
 
-    color: #ff9fc4;
+    color: #fffdff;
     font-size: 9px;
     letter-spacing: 2px;
 
@@ -2096,7 +2092,7 @@ body {
 
 .music-decoration {
     position: absolute;
-    color: rgba(255,143,189,.3);
+    color: rgba(193, 4, 250, 0.3);
     pointer-events: none;
 }
 
@@ -2154,14 +2150,14 @@ body {
     color: white;
     font-size: 13px;
     font-weight: 600;
-    background: linear-gradient(135deg, #ff6b9d, #d94d85);
-    box-shadow: 0 5px 15px rgba(255, 107, 157, 0.25);
+    background: linear-gradient(135deg, #c104fa, #c104fa);
+    box-shadow: 0 5px 15px rgba(193, 4, 250, 0.25);
     transition: 0.3s ease;
 }
 
 .music-download:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.4);
+    box-shadow: 0 8px 20px rgba(193, 4, 250, 0.4);
 }
 
 /* DRAGGABLE MUSIC BUBBLE */
@@ -2216,7 +2212,7 @@ body {
     border: none;
     border-radius: 30px;
 
-    background: linear-gradient(135deg, #ff6b9d, #d94d85);
+    background: linear-gradient(135deg, #c104fa, #c104fa);
     color: white;
 
     font-size: 15px;
@@ -2228,7 +2224,7 @@ body {
 
 .close-love-message:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.35);
+    box-shadow: 0 8px 20px rgba(193, 4, 250, 0.35);
 }
 
 /* Responsive love message */
@@ -2254,6 +2250,3 @@ body {
         margin: 20px auto;
     }
 }
-
-
-
