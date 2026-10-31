@@ -1,14 +1,343 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To My Little Girl ❤</title>
+    <link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* SINGLE PAGE BOOK */
+        .open-book.single-page-spread {
+            display: flex !important;
+            justify-content: center !important;
+            width: 100% !important;
+        }
+
+        .open-book.single-page-spread .left-page {
+            display: none !important;
+        }
+
+        .open-book.single-page-spread .right-page {
+            display: block !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            flex: 1 1 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .open-book.single-page-spread .right-page .book-page-content {
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .open-book.single-page-spread .right-page img {
+            max-width: 100% !important;
+            object-fit: contain !important;
+        }
+
+        /* WRONG PASSWORD SHAKE */
+        .login-card.shake-error {
+            animation: loginShake 0.45s ease-in-out;
+            border-color: #ff6b9d !important;
+        }
+
+        @keyframes loginShake {
+            0%, 100% { transform: translateX(0); }
+            15%, 45%, 75% { transform: translateX(-8px); }
+            30%, 60%, 90% { transform: translateX(8px); }
+        }
+
+        /* MEMORY BOOK CONTENT FIX */
+        .book-page {
+            min-width: 0 !important;
+            min-height: 0 !important;
+            overflow: hidden !important;
+            box-sizing: border-box !important;
+        }
+
+        .book-page-content {
+            width: 100% !important;
+            height: 100% !important;
+            min-width: 0 !important;
+            min-height: 0 !important;
+            box-sizing: border-box !important;
+
+            display: grid !important;
+            grid-template-rows: auto minmax(0, 1fr) minmax(0, auto) auto !important;
+            gap: 7px !important;
+
+            padding: 8px !important;
+            overflow: hidden !important;
+        }
+
+        .book-page-content h3 {
+            margin: 0 !important;
+            text-align: center !important;
+            font-size: clamp(11px, 1.5vw, 17px) !important;
+            line-height: 1.3 !important;
+            overflow-wrap: anywhere !important;
+        }
+
+        .book-page-content img {
+            display: block !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 0 !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            object-fit: contain !important;
+            margin: 0 auto !important;
+        }
+
+        .book-page-content p {
+            margin: 0 !important;
+            min-height: 0 !important;
+            max-height: 100% !important;
+            overflow-y: auto !important;
+            overflow-wrap: anywhere !important;
+            word-break: normal !important;
+            white-space: normal !important;
+            text-align: center !important;
+            font-size: clamp(10px, 1.2vw, 14px) !important;
+            line-height: 1.5 !important;
+        }
+
+        .book-page-content .page-number {
+            position: static !important;
+            display: block !important;
+            text-align: center !important;
+            margin: 0 !important;
+            font-size: 11px !important;
+        }
+
+        /* MOBILE BOOK FIX */
+        @media (max-width: 600px) {
+            .book-page-content {
+                padding: 5px !important;
+                gap: 5px !important;
+                grid-template-rows: auto minmax(0, 1fr) minmax(0, auto) auto !important;
+            }
+
+            .book-page-content h3 {
+                font-size: 11px !important;
+                line-height: 1.25 !important;
+            }
+
+            .book-page-content p {
+                font-size: 10px !important;
+                line-height: 1.4 !important;
+            }
+
+            .book-page-content .page-number {
+                font-size: 9px !important;
+            }
+
+            .book-page-content img {
+                object-fit: contain !important;
+            }
+        }
+
+        /* LOVE MESSAGE PASSWORD */
+        .love-message-lock {
+            width: min(90%, 500px);
+            margin: 40px auto;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            box-sizing: border-box;
+        }
+
+        .love-message-lock h2 {
+            margin-bottom: 12px;
+        }
+
+        .love-message-lock p {
+            margin-bottom: 20px;
+        }
+
+        .love-message-lock input {
+            width: 100%;
+            max-width: 230px;
+            padding: 13px;
+            border: 1px solid #ff8fbd;
+            border-radius: 12px;
+            outline: none;
+            text-align: center;
+            font-size: 20px;
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .love-message-lock button {
+            display: block;
+            margin: auto;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 12px;
+            background: #ff6b9d;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .love-message-lock button:hover {
+            transform: scale(1.05);
+        }
+
+        #loveLockError {
+            color: #ff6b9d;
+            margin-top: 12px;
+        }
+
+        .love-message.hidden {
+            display: none !important;
+        }
+
+        .love-message.revealed {
+            display: block !important;
+            animation: loveReveal 1s ease;
+        }
+
+        @keyframes loveReveal {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
+
+
 <body>
+
+    <!-- ROMANTIC MUSIC PLAYER -->
+
+<audio id="backgroundMusic" loop preload="auto">
+    <source src="music/song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-widget" id="musicWidget">
+
+    <!-- MUSIC PANEL -->
+    <div class="music-panel" id="musicPanel">
+
+        <div class="music-decoration decoration-one">♡</div>
+        <div class="music-decoration decoration-two">✦</div>
+        <div class="music-decoration decoration-three">♫</div>
+
+        <div class="music-panel-title">
+            <div>
+                <span class="music-small-title">A SONG FOR US</span>
+                <h3>Our Music <span>♥</span></h3>
+            </div>
+
+            <button class="music-close" onclick="toggleMusicPanel()">×</button>
+        </div>
+
+        <!-- VINYL RECORD -->
+        <div class="music-disc">
+            <div class="disc-ring">
+                <div class="disc-center">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+            </div>
+
+            <div class="disc-sparkle">✧</div>
+        </div>
+
+        <!-- SONG INFO -->
+        <div class="music-track-info">
+            <h4>Your Favorite Song</h4>
+            <p>Made with love, just for you ♡</p>
+        </div>
+
+        <!-- SOUND WAVE -->
+        <div class="music-wave">
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+        </div>
+
+        <!-- CONTROLS -->
+       <div class="music-controls">
+    <button type="button" onclick="restartMusic()" title="Restart">
+        <i class="fa-solid fa-backward-step"></i>
+    </button>
+
+    <button type="button" class="music-play" onclick="toggleMusic()">
+        <i class="fa-solid fa-play" id="musicPlayIcon"></i>
+    </button>
+
+    <button type="button" onclick="stopMusic()" title="Stop">
+        <i class="fa-solid fa-stop"></i>
+    </button>
+</div>
+
+        <a
+    href="music/song.mp3"
+    download="Love U My Girl.mp3"
+    class="music-download"
+    title="Download Our Song"
+>
+    <i class="fa-solid fa-download"></i>
+    Download Your Song
+</a>
+
+        <!-- VOLUME -->
+        <div class="music-volume">
+            <i class="fa-solid fa-volume-low"></i>
+
+            <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0.5"
+                oninput="changeMusicVolume(this.value)"
+            >
+
+            <i class="fa-solid fa-volume-high"></i>
+        </div>
+
+        <div class="music-footer">
+            FOREVER IN MY HEART ♡
+        </div>
+
+    </div>
+
+    <!-- FLOATING BUBBLE -->
+    <button
+        class="music-bubble"
+        id="musicBubble"
+        onclick="toggleMusicPanel()"
+        title="Open Music Player">
+
+        <i class="fa-solid fa-music" id="bubbleMusicIcon"></i>
+
+        <span class="music-bubble-dot"></span>
+
+    </button>
+
+</div>
+    
 
     <!-- LOGIN PAGE -->
     <section class="login-page" id="loginPage">
@@ -19,15 +348,16 @@
 
                 <div class="profile-image-container">
                     <div class="profile-glow"></div>
-                    <img src="images/baby.png" alt="Her Photo">
+                    <img src="images/we.jpeg" alt="Her Photo">
                 </div>
 
-               <h1>
-    Welcome Mariomty
-    <img class="apple-emoji"
-         src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/2764.svg"
-         alt="❤️">
-</h1>
+                <h1>
+                    Welcome Mariomty
+                    <img class="apple-emoji"
+                         src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/2764.svg"
+                         alt="❤️">
+                </h1>
+
                 <p>A little surprise is waiting for you...</p>
 
             </div>
@@ -47,6 +377,7 @@
                 </div>
 
                 <div class="keypad">
+
                     <button onclick="addNumber('1')">1</button>
                     <button onclick="addNumber('2')">2</button>
                     <button onclick="addNumber('3')">3</button>
@@ -62,6 +393,7 @@
                     <button onclick="deleteNumber()">⌫</button>
                     <button onclick="addNumber('0')">0</button>
                     <button onclick="checkPassword()">OK</button>
+
                 </div>
 
                 <p id="loginMessage"></p>
@@ -76,7 +408,6 @@
     <!-- BIRTHDAY PAGE -->
     <section class="birthday-page" id="birthdayPage">
 
-        <!-- HEADER -->
         <div class="birthday-header">
 
             <span class="birthday-tag">
@@ -84,155 +415,233 @@
             </span>
 
             <h1>
-    Happy Birthday
-    <img class="apple-emoji"
-         src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/2764.svg"
-         alt="❤️">
-</h1>
+                اجمل 19 سنه ينور عيني
+                <img class="apple-emoji"
+                     src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/2764.svg"
+                     alt="❤️">
+            </h1>
 
-            <p>
-                A little collection of beautiful memories
-            </p>
+            <p>A little collection of beautiful memories</p>
 
-             <p>
-               ادخلي برجلك اليمين كدا لحد الاخر ها
-            </p>
+            <p>ادخلي برجلك اليمين كدا لحد الاخر ها</p>
 
         </div>
 
 
-        <!-- MEMORY CARDS -->
+        <!-- PHOTO + MEMORY BOOK -->
         <div class="birthday-cards">
 
-            <!-- CARD 1 -->
+            <!-- MEMORY CARD -->
             <div class="memory-card">
 
                 <div class="card-image">
 
-                    <img
-                        src="images/love.jpeg"
-                        alt="Our Beginning"
-                    >
+                    <img src="images/us.jpeg" alt="My Favorite Person">
 
-                    <div class="image-overlay">
-                        ♡
-                    </div>
-
-                </div>
-
-                <h2>My Fav Photo For You ❤️</h2>
-
-                <p>
-                   انا بعشقلك الصوره دي يبت يمريم بطريقه انتي مش هتتخيليها والله
-                </p>
-
-            </div>
-
-
-            <!-- CARD 2 -->
-            <div class="memory-card">
-
-                <div class="card-image">
-
-                    <img
-                        src="images/us.jpeg"
-                        alt="My Favorite Person"
-                    >
-
-                    <div class="image-overlay">
-                        ♡
-                    </div>
+                    <div class="image-overlay">♡</div>
 
                 </div>
 
                 <h2>My Favorite Person 💗</h2>
 
                 <p>
-                   صوره مش حقيقه موقتا بس لحد ما فعليا ربنا يسهلها ونتصورها حقيقه وبجد عجباني شكلها موت انا وانتي لايقين علي بعض
+                    صوره مش حقيقه موقتا بس لحد ما فعليا ربنا يسهلها ونتصورها حقيقه وبجد عجباني شكلها موت انا وانتي لايقين علي بعض
                 </p>
 
             </div>
 
+
+            <!-- MEMORY BOOK -->
+            <section class="memory-book-section">
+
+                <h2 class="book-section-title">
+                    All Photos For U I have ❤️
+                </h2>
+
+                <p class="book-section-desc">
+                    A little book full of you 🌹
+                </p>
+
+                <!-- BOOK COVER -->
+                <button class="book-cover" id="bookCover" type="button">
+
+                    <div class="cover-decoration">
+                        <span>♡</span>
+                        <img src="images/baby.png" alt="Our Memory">
+                        <span>♡</span>
+                    </div>
+
+                    <h2>Photooos For You</h2>
+                    <p></p>
+
+                    <div class="cover-bottom">
+                        سمي الله وافتحي
+                    </div>
+
+                </button>
+
+
+                <!-- OPEN BOOK -->
+                <div class="book-container" id="bookContainer">
+
+                    <button
+                        class="close-book"
+                        id="closeBook"
+                        type="button"
+                        aria-label="Close book">
+                        ✕
+                    </button>
+
+                    <div class="open-book">
+
+                        <!-- SPIRAL -->
+                        <div class="book-spiral" aria-hidden="true">
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+
+                        <!-- LEFT PAGE -->
+                        <div class="book-page left-page" id="leftPage"></div>
+
+                        <!-- RIGHT PAGE -->
+                        <div class="book-page right-page" id="rightPage"></div>
+
+                    </div>
+
+                    <!-- CONTROLS -->
+                    <div class="book-controls">
+
+                        <button id="prevPage" type="button">
+                            ❮ Previous
+                        </button>
+
+                        <span id="pageNumber">1 / 17</span>
+
+                        <button id="nextPage" type="button">
+                            Next ❯
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
         </div>
 
-                <!-- SPECIAL LOVE MESSAGE -->
-       <div class="love-message">
 
-   <div class="message-icon">
-    <img class="apple-emoji"
-         src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/1F48C.svg"
-         alt="💌">
+        <!-- LOVE MESSAGE PASSWORD -->
+        <div class="love-message-lock" id="loveMessageLock">
+
+            <h2>One More Surprise ❤️</h2>
+
+            <p>
+                في حاجة تانية مستنياكي...
+                 حطي الباسورد التاني💗
+            </p>
+
+            <input
+                type="password"
+                id="lovePassword"
+                placeholder="••••"
+                maxlength="4"
+                inputmode="numeric"
+                autocomplete="off"
+            >
+
+            <button type="button" onclick="unlockLoveMessage()">
+                افتح يا سمسم ❤️
+            </button>
+
+            <p id="loveLockError"></p>
+
+        </div>
+
+
+        <!-- LOVE MESSAGE -->
+        <div class="love-message hidden" id="loveMessage">
+
+            <div class="message-icon">
+                <img class="apple-emoji"
+                     src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/1F48C.svg"
+                     alt="💌">
+            </div>
+
+            <h2>يلا بسم الله</h2>
+
+            <p>
+                كل سنة وانتي طيبة يا مريومتي ويا أجمل حاجة حصلتلي ❤️❤️
+            </p>
+
+            <p>
+                النهارده مش مجرد عيد ميلادك ده أول عيد ميلاد ليكي واحنا سوا وصدقيني أنا مبسوط إن ربنا اختار إننا نكون في حياة بعض حتى لو مبقالناش كتير سوا بس انتي في الفترة الصغيرة دي بقيتي أحن وأغلى شخص في حياتي وبقيتي جزء كبير مني ومن يومي ومش متخيل حياتي من غيرك ولا عايز أتخيلها أصلاً.
+            </p>
+
+            <p>
+                بجد أنا اتعلقت بيكي تعلق مش عادي اتعلقت بيكي زي الطفل الصغير اللي بيتعلق بأمه وبيحس إن الدنيا كلها أمان طول ما هي جنبه وانتي بالنسبالي بقيتي الأمان والحنية والراحة اللي بدور عليهم ومش عارف أتخيل يومي أو حياتي من غيرك. يمكن الكلام ده يبان كبير بس والله ده أقل من اللي جوايا ناحيتك.
+            </p>
+
+            <p>
+                وحرفياً أنا بعشق كل تفصيلة فيكي بعشق ملامحك من أول عيونك لضحكتك لنظراتك وكل حاجة صغيرة في وشك يمكن انتي متاخديش بالك منها بس أنا بشوفها وبحبها. بحب أبصلك وبحب ضحكتك وبحب كل تفصيلة بتخليكي انتي ومحدش غيرك.
+            </p>
+
+            <p>
+                وعايزك تعرفي إني عارف بجد إني مش أحسن إنسان ممكن تقابليه في حياتك وإن أكيد هتقابلي ناس كتير بعدي وكل واحد فيهم هيكون ليه مميزاته وعيوبه بس أنا بجد بحاول أكون أحسن نسخة من نفسي عشان خاطرك وبعمل أقصى جهدي عشان أبسطك وأشوفك مبسوطة حتى لو ساعات مبعرفش أوصل ده بالطريقة الصح. أنا مش بقول إني كامل ولا إني عمري ما هغلط بس بقولك إني بحاول وبجد فارق معايا زعلك وفرحتك وكل تفصيلة تخصك.
+            </p>
+
+            <p>
+                وبجد أنا حبيتك من كل قلبي حبيتك حب صافي مش حب شهوات ولا مجرد إعجاب أو فترة وهتعدي. حبيتك عشان انتي انتي وعشان روحك وطيبتك وحنانك وعشان وجودك في حياتي بقى فارق معايا بطريقة مش قادر أوصفها. أنا بحبك كشخص وبحب تفاصيلك وبحب أكون سبب في ضحكتك وراحتك.
+            </p>
+
+            <p>
+                وبالنسبة للفيديوهات اللي عملتيها دي فبجد مش عارف أوصفلك هي بالنسبالي إيه. الفيديوهات دي هتفضل في قلبي لآخر يوم في عمري وهفضل أرجعلها كل ما وحشني صوتك أو وحشتيني. كفاية صوتك بالنسبالي اللي حرفياً بحسه علاج ليا وكفاية لما تنطقي اسمي بصوتك ده بحس إني في عالم تاني خالص وبنسى أي حاجة مضايقاني. مش عارف إزاي صوتك بيقدر يعمل فيا كل ده بس بجد أنا بعشق أسمعه وبعشق كل مرة بتكلميني فيها.
+            </p>
+
+            <p>
+                أنا عارف إننا مرينا بمشاكل كتير وإن مش كل الأيام كانت سهلة علينا بس أكتر حاجة بحبها فينا إن مهما حصل ومهما زعلنا من بعض بنفضل متمسكين ببعض وبنرجع أقوى من الأول وده بيأكدلي كل مرة إن اللي بينا يستاهل وإن وجودك في حياتي حاجة مش عايز أخسرها أبداً.
+            </p>
+
+            <p>
+                وبجد في حاجة نفسي تعرفيها وهي إن كل مرة بتزعلي فيها أو بتعيطي ببقى نفسي أكون جنبك وأخدك في حضني وأطبطب عليكي وأقولك إن كل حاجة هتبقى كويسة وإنك مش لوحدك. بس ساعات مكنتش بعرف أعمل كده أو مكنتش بعرف أوصلك الإحساس ده وده كان بيضايقني أكتر ما تتخيلي. أنا عمري ما كنت بحب أشوفك زعلانة وكل اللي كنت بتمناه إني أقدر أخفف عنك ولو جزء صغير من اللي جواكي.
+            </p>
+
+            <p>
+                وعايز أقولك إني آسف لو نسيت أي أحداث جديدة أو تفاصيل حصلت بينا الفترة اللي فاتت بس أنا عامل المسدج دي بتاريخ 30/10 من دلوقتي عشان الواحد مش ضامن عمره 😂❤️ وعايز أضمن إن في حاجة مني توصلك وتفرحك في يوم زي ده حتى لو أنا مش موجود وقتها. بجد نفسي أبسطك وأشوفك مبسوطة وأتمنى إن الرسالة دي تخليكي تبتسمي حتى لو أنا مش جنبك وقتها.
+            </p>
+
+            <p>
+                عايزك تعرفي إنك غالية عندي أكتر ما تتخيلي وإن وجودك فرق معايا كتير وإنك من أحلى الحاجات اللي حصلتلي في حياتي. أتمنى تفضلي دايماً مبسوطة ومطمنة وعمرك ما تحسي إنك لوحدك.
+            </p>
+
+            <p>
+                يارب تكون سنة جديدة عليكي مليانة فرحة وراحة بال وتحقيق لكل اللي نفسك فيه وأكون جنبك في كل عيد ميلاد وكل لحظة حلوة جاية ونفضل نعدي أي مشكلة سوا ونختار بعض كل مرة زي ما بنعمل.
+            </p>
+
+            <p>
+                كل سنة وانتي حبيبتي ومريومتي وأماني وأحن وأغلى حد عندي ❤️
+            </p>
+
+            <p>
+                بحبك أوي يا مريومتي وبعشقك وبعشق كل تفصيلة فيكي ومهما أكتب مش هوصف انتي بقيتي إيه بالنسبالي ❤️❤️
+            </p>
+
+           <div class="message-signature">
+    I love You My wife ❤️
 </div>
 
-    <h2>يلا بسم الله</h2>
+<button class="close-love-message" onclick="lockLoveMessage()">
+    <i class="fa-solid fa-lock"></i>
+   اقفلي الرساله تاني❤️
+</button>
 
-    <p>
-        كل سنة وانتي طيبة يا مريومتي ويا أجمل حاجة حصلتلي ❤️❤️
-    </p>
-
-    <p>
-        النهارده مش مجرد عيد ميلادك ده أول عيد ميلاد ليكي واحنا سوا وصدقيني أنا مبسوط إن ربنا اختار إننا نكون في حياة بعض حتى لو مبقالناش كتير سوا بس انتي في الفترة الصغيرة دي بقيتي أحن وأغلى شخص في حياتي وبقيتي جزء كبير مني ومن يومي ومش متخيل حياتي من غيرك ولا عايز أتخيلها أصلاً.
-    </p>
-
-    <p>
-        بجد أنا اتعلقت بيكي تعلق مش عادي اتعلقت بيكي زي الطفل الصغير اللي بيتعلق بأمه وبيحس إن الدنيا كلها أمان طول ما هي جنبه وانتي بالنسبالي بقيتي الأمان والحنية والراحة اللي بدور عليهم ومش عارف أتخيل يومي أو حياتي من غيرك. يمكن الكلام ده يبان كبير بس والله ده أقل من اللي جوايا ناحيتك.
-    </p>
-
-    <p>
-        وحرفياً أنا بعشق كل تفصيلة فيكي بعشق ملامحك من أول عيونك لضحكتك لنظراتك وكل حاجة صغيرة في وشك يمكن انتي متاخديش بالك منها بس أنا بشوفها وبحبها. بحب أبصلك وبحب ضحكتك وبحب كل تفصيلة بتخليكي انتي ومحدش غيرك.
-    </p>
-
-    <p>
-        وعايزك تعرفي إني عارف بجد إني مش أحسن إنسان ممكن تقابليه في حياتك وإن أكيد هتقابلي ناس كتير بعدي وكل واحد فيهم هيكون ليه مميزاته وعيوبه بس أنا بجد بحاول أكون أحسن نسخة من نفسي عشان خاطرك وبعمل أقصى جهدي عشان أبسطك وأشوفك مبسوطة حتى لو ساعات مبعرفش أوصل ده بالطريقة الصح. أنا مش بقول إني كامل ولا إني عمري ما هغلط بس بقولك إني بحاول وبجد فارق معايا زعلك وفرحتك وكل تفصيلة تخصك.
-    </p>
-
-    <p>
-        وبجد أنا حبيتك من كل قلبي حبيتك حب صافي مش حب شهوات ولا مجرد إعجاب أو فترة وهتعدي. حبيتك عشان انتي انتي وعشان روحك وطيبتك وحنانك وعشان وجودك في حياتي بقى فارق معايا بطريقة مش قادر أوصفها. أنا بحبك كشخص وبحب تفاصيلك وبحب أكون سبب في ضحكتك وراحتك.
-    </p>
-
-    <p>
-        وبالنسبة للفيديوهات اللي عملتيها دي فبجد مش عارف أوصفلك هي بالنسبالي إيه. الفيديوهات دي هتفضل في قلبي لآخر يوم في عمري وهفضل أرجعلها كل ما وحشني صوتك أو وحشتيني. كفاية صوتك بالنسبالي اللي حرفياً بحسه علاج ليا وكفاية لما تنطقي اسمي بصوتك ده بحس إني في عالم تاني خالص وبنسى أي حاجة مضايقاني. مش عارف إزاي صوتك بيقدر يعمل فيا كل ده بس بجد أنا بعشق أسمعه وبعشق كل مرة بتكلميني فيها.
-    </p>
-
-    <p>
-        أنا عارف إننا مرينا بمشاكل كتير وإن مش كل الأيام كانت سهلة علينا بس أكتر حاجة بحبها فينا إن مهما حصل ومهما زعلنا من بعض بنفضل متمسكين ببعض وبنرجع أقوى من الأول وده بيأكدلي كل مرة إن اللي بينا يستاهل وإن وجودك في حياتي حاجة مش عايز أخسرها أبداً.
-    </p>
-
-    <p>
-        وبجد في حاجة نفسي تعرفيها وهي إن كل مرة بتزعلي فيها أو بتعيطي ببقى نفسي أكون جنبك وأخدك في حضني وأطبطب عليكي وأقولك إن كل حاجة هتبقى كويسة وإنك مش لوحدك. بس ساعات مكنتش بعرف أعمل كده أو مكنتش بعرف أوصلك الإحساس ده وده كان بيضايقني أكتر ما تتخيلي. أنا عمري ما كنت بحب أشوفك زعلانة وكل اللي كنت بتمناه إني أقدر أخفف عنك ولو جزء صغير من اللي جواكي.
-    </p>
-
-    <p>
-        وعايز أقولك إني آسف لو نسيت أي أحداث جديدة أو تفاصيل حصلت بينا الفترة اللي فاتت بس أنا عامل المسدج دي بتاريخ 30/10 من دلوقتي عشان الواحد مش ضامن عمره 😂❤️ وعايز أضمن إن في حاجة مني توصلك وتفرحك في يوم زي ده حتى لو أنا مش موجود وقتها. بجد نفسي أبسطك وأشوفك مبسوطة وأتمنى إن الرسالة دي تخليكي تبتسمي حتى لو أنا مش جنبك وقتها.
-    </p>
-
-    <p>
-        عايزك تعرفي إنك غالية عندي أكتر ما تتخيلي وإن وجودك فرق معايا كتير وإنك من أحلى الحاجات اللي حصلتلي في حياتي. أتمنى تفضلي دايماً مبسوطة ومطمنة وعمرك ما تحسي إنك لوحدك.
-    </p>
-
-    <p>
-        يارب تكون سنة جديدة عليكي مليانة فرحة وراحة بال وتحقيق لكل اللي نفسك فيه وأكون جنبك في كل عيد ميلاد وكل لحظة حلوة جاية ونفضل نعدي أي مشكلة سوا ونختار بعض كل مرة زي ما بنعمل.
-    </p>
-
-    <p>
-        كل سنة وانتي حبيبتي ومريومتي وأماني وأحن وأغلى حد عندي ❤️
-    </p>
-
-    <p>
-        بحبك أوي يا مريومتي وبعشقك وبعشق كل تفصيلة فيكي ومهما أكتب مش هوصف انتي بقيتي إيه بالنسبالي ❤️❤️
-    </p>
-
-    <div class="message-signature">
-        I love You My wife ❤️
-    </div>
-
-</div>
+        </div>
 
 
         <!-- FOOTER -->
         <div class="birthday-footer">
 
-            <span>Made By Your husband , Mahmoud </span>
+            <span>Made By Your husband , Mahmoud</span>
 
             <div>♡ ∞ ♡</div>
 
@@ -240,96 +649,782 @@
 
     </section>
 
-    <script>
-/* =========================
-   AUTO EMOJI CONVERTER
-========================= */
+   
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const backgroundMusic = document.getElementById("backgroundMusic");
+    const musicWidget = document.getElementById("musicWidget");
+    const musicBubble = document.getElementById("musicBubble");
+    const musicPanel = document.getElementById("musicPanel");
+    const musicPlayIcon = document.getElementById("musicPlayIcon");
+    const bubbleMusicIcon = document.getElementById("bubbleMusicIcon");
 
-const emojiImages = {
-    "❤️": "2764",
-    "❤": "2764",
-    "💗": "1F497",
-    "💌": "1F48C",
-    "✨": "2728"
+    if (!backgroundMusic || !musicWidget || !musicBubble) return;
+
+    // MUSIC SETTINGS
+    backgroundMusic.volume = 0.5;
+
+    // OPEN / CLOSE PANEL
+    window.toggleMusicPanel = function () {
+        musicPanel.classList.toggle("active");
+    };
+
+    // PLAY / PAUSE
+ window.toggleMusic = function () {
+    if (backgroundMusic.paused) {
+        backgroundMusic.play().catch(error => {
+            console.error("Music error:", error);
+        });
+    } else {
+        backgroundMusic.pause();
+    }
 };
 
-function convertEmojis() {
-    const walker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_TEXT
-    );
+    // STOP
+    window.stopMusic = function () {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+    };
 
-    const textNodes = [];
+    // RESTART
+    window.restartMusic = function () {
+        backgroundMusic.currentTime = 0;
+        backgroundMusic.play().catch(error => {
+            console.error("Music error:", error);
+        });
+    };
 
-    while (walker.nextNode()) {
-        const node = walker.currentNode;
+    // VOLUME
+    window.changeMusicVolume = function (value) {
+        backgroundMusic.volume = Number(value);
+    };
 
-        if (
-            node.parentElement &&
-            !["SCRIPT", "STYLE", "TEXTAREA", "INPUT"].includes(
-                node.parentElement.tagName
-            )
-        ) {
-            textNodes.push(node);
+    // UPDATE PLAYER ICONS
+    function updateMusicVisuals() {
+        const playing = !backgroundMusic.paused;
+
+        musicWidget.classList.toggle("playing", playing);
+
+        if (musicPlayIcon) {
+            musicPlayIcon.className = playing
+                ? "fa-solid fa-pause"
+                : "fa-solid fa-play";
+        }
+
+        if (bubbleMusicIcon) {
+            bubbleMusicIcon.className = playing
+                ? "fa-solid fa-pause"
+                : "fa-solid fa-music";
         }
     }
 
-    textNodes.forEach(node => {
-        const text = node.nodeValue;
-        const regex = /(❤️|❤|💗|💌|✨)/g;
+    backgroundMusic.addEventListener("play", updateMusicVisuals);
+    backgroundMusic.addEventListener("pause", updateMusicVisuals);
+    backgroundMusic.addEventListener("ended", updateMusicVisuals);
 
-        if (!regex.test(text)) return;
+    // DRAG MUSIC WIDGET
+    let isDragging = false;
+    let hasMoved = false;
+    let startX = 0;
+    let startY = 0;
+    let startLeft = 0;
+    let startTop = 0;
 
-        regex.lastIndex = 0;
+    musicBubble.style.touchAction = "none";
 
-        const fragment = document.createDocumentFragment();
-        const parts = text.split(regex);
+    musicBubble.addEventListener("pointerdown", (e) => {
+        if (e.button !== 0 && e.pointerType === "mouse") return;
 
-        parts.forEach(part => {
-            if (emojiImages[part]) {
-                const img = document.createElement("img");
+        e.preventDefault();
 
-                img.className = "apple-emoji";
-                img.src =
-                    "https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/" +
-                    emojiImages[part] + ".svg";
+        isDragging = true;
+        hasMoved = false;
 
-                img.alt = part;
-                img.loading = "lazy";
+        const rect = musicWidget.getBoundingClientRect();
 
-                fragment.appendChild(img);
-            } else if (part) {
-                fragment.appendChild(
-                    document.createTextNode(part)
-                );
-            }
-        });
+        startX = e.clientX;
+        startY = e.clientY;
+        startLeft = rect.left;
+        startTop = rect.top;
 
-        node.parentNode.replaceChild(fragment, node);
+        musicWidget.style.left = rect.left + "px";
+        musicWidget.style.top = rect.top + "px";
+        musicWidget.style.right = "auto";
+        musicWidget.style.bottom = "auto";
+
+        musicBubble.setPointerCapture(e.pointerId);
     });
-}
 
-convertEmojis();
+    musicBubble.addEventListener("pointermove", (e) => {
+        if (!isDragging) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+            hasMoved = true;
+        }
+
+        if (!hasMoved) return;
+
+        const maxX = Math.max(0, window.innerWidth - musicWidget.offsetWidth);
+        const maxY = Math.max(0, window.innerHeight - musicWidget.offsetHeight);
+
+        const left = Math.max(0, Math.min(maxX, startLeft + dx));
+        const top = Math.max(0, Math.min(maxY, startTop + dy));
+
+        musicWidget.style.left = left + "px";
+        musicWidget.style.top = top + "px";
+    });
+
+    function endDragging() {
+        if (!isDragging) return;
+
+        isDragging = false;
+
+        if (hasMoved) {
+            musicBubble.dataset.dragged = "true";
+
+            setTimeout(() => {
+                delete musicBubble.dataset.dragged;
+            }, 300);
+        }
+    }
+
+    musicBubble.addEventListener("pointerup", endDragging);
+    musicBubble.addEventListener("pointercancel", endDragging);
+
+    // PREVENT OPENING PANEL AFTER DRAGGING
+    musicBubble.addEventListener("click", (e) => {
+        if (musicBubble.dataset.dragged === "true") {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        }
+    }, true);
+
+    // KEEP WIDGET INSIDE THE SCREEN AFTER RESIZING
+    window.addEventListener("resize", () => {
+        if (!musicWidget.style.left || !musicWidget.style.top) return;
+
+        const maxX = Math.max(0, window.innerWidth - musicWidget.offsetWidth);
+        const maxY = Math.max(0, window.innerHeight - musicWidget.offsetHeight);
+
+        musicWidget.style.left =
+            Math.min(parseFloat(musicWidget.style.left), maxX) + "px";
+
+        musicWidget.style.top =
+            Math.min(parseFloat(musicWidget.style.top), maxY) + "px";
+    });
+});
 </script>
 
 
-    <!-- JAVASCRIPT -->
+
+    <!-- MEMORY BOOK JAVASCRIPT -->
     <script>
 
         
 
-        /* =========================
-           LOGIN SYSTEM
-        ========================= */
+        const bookCover = document.getElementById("bookCover");
+        const bookContainer = document.getElementById("bookContainer");
+        const closeBook = document.getElementById("closeBook");
 
-       let enteredPassword = "";
-const correctPassword = "1911";
+        const leftPage = document.getElementById("leftPage");
+        const rightPage = document.getElementById("rightPage");
 
-const useDateLock = "no"; // yes = يستنى التاريخ | no = يفتح فورًا
+        const nextPage = document.getElementById("nextPage");
+        const prevPage = document.getElementById("prevPage");
 
-let isUnlocking = false;
+        const pageNumber = document.getElementById("pageNumber");
+        const openBook = document.querySelector(".open-book");
+
+        let currentSpread = 0;
+        let isTurning = false;
 
 
+        /* ALL MEMORY PAGES */
+        const memoryPages = [
+
+            {
+                title: "Our Calls ❤️",
+                image: "images/calls.jpeg",
+                text: "كل كولاتنا سوا وربنا يديمك ليا يروحقلبي",
+                fullPage: true
+            },
+
+            {
+                title: "My weakness",
+                image: "images/bb2.jpeg",
+                text: "يعني بجد مشاء الله عينك حلوه اوي"
+            },
+
+            {
+                title: "My Crazy Girl",
+                image: "images/bb3.jpeg",
+                text: "نمبر وان وكده يعني ؟"
+            },
+
+            {
+                title: "My Crazy Girl",
+                image: "images/bb4.jpeg",
+                text: "مميته اوي دي بردو"
+            },
+
+            {
+                title: "Your Beautiful Eyes",
+                image: "images/bb5.jpeg",
+                text: "لا لا انا بدوب اوي اي النظره دي ؟؟"
+            },
+
+            {
+                title: "My Happiness",
+                image: "images/bb6.jpeg",
+                text: "طبعا صورك دي كلها فقلبي كلها بالمعني الحرفي"
+            },
+
+            {
+                title: "Always You",
+                image: "images/bb7.jpeg",
+                text: "طبعا صورك دي كلها فقلبي كلها بالمعني الحرفي"
+            },
+
+            {
+                title: "My Pretty Girl",
+                image: "images/bb1.jpeg",
+                text: "الواد الملزق يتبصله كدا ؟ تمام اوي"
+            },
+
+            {
+                title: "My Girl",
+                image: "images/bb9.jpeg",
+                text: "طبعا صورك دي كلها فقلبي كلها بالمعني الحرفي"
+            },
+
+            {
+                title: "My Girl",
+                image: "images/bb10.jpeg",
+                text: "طبعا صورك دي كلها فقلبي كلها بالمعني الحرفي"
+            },
+
+            {
+                title: "My Girl",
+                image: "images/bb11.jpeg",
+                text: "طبعا صورك دي كلها فقلبي كلها بالمعني الحرفي"
+            },
+
+            {
+                title: "My Favorite Person",
+                image: "images/bb12.jpeg",
+                text: "شياكه واناقه اوي مشاء الله"
+            },
+
+            {
+                title: "My Crazy Girl",
+                image: "images/bb13.jpeg",
+                text: "عبثيات بس بعشقها"
+            },
+
+            {
+                title: "wow !!",
+                image: "images/bb14.jpeg",
+                text: "زوجتي المزه"
+            },
+
+            {
+                title: "Beautiful Soul",
+                image: "images/bb15.jpeg",
+                text: "مشاء الله اللهم بارك حته قطشه"
+            },
+
+            {
+                title: "I like You",
+                image: "images/bb16.jpeg",
+                text: "كل ما اشوفك هعجب بيكي اكتر"
+            },
+
+            {
+                title: "Wifee",
+                image: "images/bb17.jpeg",
+                text: "مميت اوي الطقم ده عليكي"
+            },
+
+            {
+                title: "My Forever",
+                image: "images/bb18.jpeg",
+                text: "مزه اوي بجددد"
+            },
+
+            {
+                title: "Madriid ?",
+                image: "images/bb19.jpeg",
+                text: "هننزل ديت بمدريد بقا علي كدا "
+            },
+
+            {
+                title: "Ice Coffee",
+                image: "images/bb20.jpeg",
+                text: "ايس كوفي دا يبويا ؟"
+            },
+
+            {
+                title: "Flower",
+                image: "images/bb21.jpeg",
+                text: "ورده شايله ورد والله"
+            },
+
+            {
+                title: "I likeeeeee",
+                image: "images/bb22.jpeg",
+                text: "عيب الجمال ده ميبقاش فبيتي"
+            },
+
+            {
+                title: "Lovvvvvvvvve",
+                image: "images/bb23.jpeg",
+                text: "مهما اكتب والله مافيش حاجه هتوصف الي نفسي اقولو"
+            },
+
+            {
+                title: "Baby Girl",
+                image: "images/bb24.jpeg",
+                text: "مشاء الله وتكه"
+            },
+
+            {
+                title: "First Favorite",
+                image: "images/bb25.jpeg",
+                text: "يسلام علي حلويات نمبر وان"
+            },
+
+            {
+                title: "muuah",
+                image: "images/bb26.jpeg",
+                text: "كاعد موكدب وكدا يعني ؟"
+            },
+
+            {
+                title: "My Heart",
+                image: "images/bb27.jpeg",
+                text: "نيجي للسبيشيال بقا والعشق"
+            },
+
+            {
+                title: "Lucky Me",
+                image: "images/bb28.jpeg",
+                text: "يبخت المرايه شافت مريم"
+            },
+
+            {
+                title: "only u",
+                image: "images/bb29.jpeg",
+                text: "تتجوزيني ؟"
+            },
+
+            {
+                title: "My Beautiful Angel",
+                image: "images/bb30.jpeg",
+                text: "ملاك مشاء الله والله"
+            },
+
+            {
+                title: "Wife ?",
+                image: "images/bb32.jpeg",
+                text: "ضحكتك بجددد مدمنها"
+            },
+
+            {
+                title: "My Love",
+                image: "images/bb33.jpeg",
+                text: "حبي الاخير والله"
+            }
+
+        ];
+
+
+        /* CREATE BOOK SPREADS */
+        function createBookSpreads() {
+
+            const spreads = [];
+
+            let index = 0;
+
+            while (index < memoryPages.length) {
+
+                const currentPage = memoryPages[index];
+
+                if (currentPage.fullPage) {
+
+                    spreads.push({
+                        type: "single",
+                        page: currentPage,
+                        pageIndex: index
+                    });
+
+                    index++;
+
+                } else {
+
+                    const next = memoryPages[index + 1];
+
+                    spreads.push({
+                        type: "double",
+                        left: currentPage,
+                        right: next || null,
+                        leftIndex: index,
+                        rightIndex: next ? index + 1 : null
+                    });
+
+                    index += 2;
+
+                }
+
+            }
+
+            return spreads;
+
+        }
+
+
+        const bookSpreads = createBookSpreads();
+        const totalSpreads = bookSpreads.length;
+
+
+        /* CREATE PAGE HTML */
+        function createPageHTML(page, number) {
+
+            if (!page) return "";
+
+            return `
+                <div class="book-page-content">
+
+                    <h3>${page.title}</h3>
+
+                    <img
+                        src="${page.image}"
+                        alt="${page.title}"
+                        loading="lazy"
+                    >
+
+                    <p>${page.text}</p>
+
+                    <span class="page-number">${number}</span>
+
+                </div>
+            `;
+
+        }
+
+
+        /* RENDER BOOK */
+        function renderBookPages() {
+
+            const spread = bookSpreads[currentSpread];
+
+            if (!spread) return;
+
+            openBook.classList.remove("single-page-spread");
+
+            leftPage.style.display = "";
+            rightPage.style.display = "";
+
+            leftPage.innerHTML = "";
+            rightPage.innerHTML = "";
+
+            if (spread.type === "single") {
+
+                openBook.classList.add("single-page-spread");
+
+                leftPage.style.display = "none";
+
+                rightPage.innerHTML = createPageHTML(
+                    spread.page,
+                    spread.pageIndex + 1
+                );
+
+            } else {
+
+                leftPage.innerHTML = createPageHTML(
+                    spread.left,
+                    spread.leftIndex + 1
+                );
+
+                rightPage.innerHTML = createPageHTML(
+                    spread.right,
+                    spread.rightIndex !== null
+                        ? spread.rightIndex + 1
+                        : ""
+                );
+
+            }
+
+            pageNumber.textContent =
+                `${currentSpread + 1} / ${totalSpreads}`;
+
+            prevPage.disabled = currentSpread === 0;
+
+            nextPage.disabled =
+                currentSpread === totalSpreads - 1;
+
+        }
+
+
+        /* TURN BOOK */
+        function turnBook(direction) {
+
+            if (isTurning) return;
+
+            const newSpread = currentSpread + direction;
+
+            if (
+                newSpread < 0 ||
+                newSpread >= totalSpreads
+            ) {
+                return;
+            }
+
+            isTurning = true;
+
+            openBook.classList.remove("turn-next", "turn-prev");
+
+            void openBook.offsetWidth;
+
+            openBook.classList.add(
+                direction === 1 ? "turn-next" : "turn-prev"
+            );
+
+            setTimeout(() => {
+
+                currentSpread = newSpread;
+
+                renderBookPages();
+
+                openBook.classList.remove(
+                    "turn-next",
+                    "turn-prev"
+                );
+
+                isTurning = false;
+
+            }, 550);
+
+        }
+
+
+        /* OPEN BOOK */
+        bookCover.addEventListener("click", () => {
+
+            currentSpread = 0;
+
+            renderBookPages();
+
+            bookCover.style.display = "none";
+
+            bookContainer.classList.add("open");
+
+        });
+
+
+        /* CLOSE BOOK */
+        closeBook.addEventListener("click", () => {
+
+            bookContainer.classList.remove("open");
+
+            bookCover.style.display = "block";
+
+            currentSpread = 0;
+
+            isTurning = false;
+
+            renderBookPages();
+
+        });
+
+
+        /* NEXT AND PREVIOUS */
+        nextPage.addEventListener("click", () => {
+            turnBook(1);
+        });
+
+        prevPage.addEventListener("click", () => {
+            turnBook(-1);
+        });
+
+
+        /* INITIAL RENDER */
+        renderBookPages();
+
+    </script>
+
+
+    <!-- AUTO EMOJI CONVERTER -->
+    <script>
+
+        const emojiImages = {
+
+            "❤️": "2764",
+            "❤": "2764",
+            "💗": "1F497",
+            "💌": "1F48C",
+            "✨": "2728"
+
+        };
+
+
+        function convertEmojis() {
+
+            const walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT
+            );
+
+            const textNodes = [];
+
+            while (walker.nextNode()) {
+
+                const node = walker.currentNode;
+
+                if (
+                    node.parentElement &&
+                    !["SCRIPT", "STYLE", "TEXTAREA", "INPUT"].includes(
+                        node.parentElement.tagName
+                    )
+                ) {
+
+                    textNodes.push(node);
+
+                }
+
+            }
+
+            textNodes.forEach(node => {
+
+                const text = node.nodeValue;
+                const regex = /(❤️|❤|💗|💌|✨)/g;
+
+                if (!regex.test(text)) return;
+
+                regex.lastIndex = 0;
+
+                const fragment = document.createDocumentFragment();
+                const parts = text.split(regex);
+
+                parts.forEach(part => {
+
+                    if (emojiImages[part]) {
+
+                        const img = document.createElement("img");
+
+                        img.className = "apple-emoji";
+
+                        img.src =
+                            "https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji@master/color/svg/" +
+                            emojiImages[part] + ".svg";
+
+                        img.alt = part;
+                        img.loading = "lazy";
+
+                        fragment.appendChild(img);
+
+                    } else if (part) {
+
+                        fragment.appendChild(
+                            document.createTextNode(part)
+                        );
+
+                    }
+
+                });
+
+                node.parentNode.replaceChild(fragment, node);
+
+            });
+
+        }
+
+        convertEmojis();
+
+    </script>
+
+
+    <!-- LOVE MESSAGE PASSWORD SYSTEM -->
+   <script>
+    function unlockLoveMessage() {
+        const password = document.getElementById("lovePassword");
+        const error = document.getElementById("loveLockError");
+
+        const lock = document.getElementById("loveMessageLock");
+        const message = document.getElementById("loveMessage");
+
+        if (password.value === "2007") {
+            error.textContent = "";
+
+            lock.style.display = "none";
+
+            message.classList.remove("hidden");
+            message.classList.add("revealed");
+
+           
+
+        } else {
+            error.textContent = "بجد يا مريم؟ الباسورد غلط ❤️";
+
+            password.value = "";
+            password.focus();
+        }
+    }
+
+    // LOCK LOVE MESSAGE AGAIN
+    function lockLoveMessage() {
+        const password = document.getElementById("lovePassword");
+        const error = document.getElementById("loveLockError");
+
+        const lock = document.getElementById("loveMessageLock");
+        const message = document.getElementById("loveMessage");
+
+        // Hide the message
+        message.classList.remove("revealed");
+        message.classList.add("hidden");
+
+        // Reset password
+        password.value = "";
+        error.textContent = "";
+
+        // Show password screen again
+        lock.style.display = "block";
+
+        // Scroll back to password screen
+        setTimeout(() => {
+            lock.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+            password.focus();
+        }, 100);
+    }
+
+    // ENTER TO UNLOCK
+    document.getElementById("lovePassword").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            unlockLoveMessage();
+        }
+    });
+</script>
+
+
+    <!-- LOGIN SYSTEM -->
+    <script>
+
+        let enteredPassword = "";
+
+        const correctPassword = "1911";
+
+        const useDateLock = "no";
+
+        let isUnlocking = false;
+
+
+        /* ADD NUMBER */
         function addNumber(number) {
 
             if (isUnlocking) return;
@@ -343,6 +1438,7 @@ let isUnlocking = false;
         }
 
 
+        /* DELETE NUMBER */
         function deleteNumber() {
 
             if (isUnlocking) return;
@@ -354,6 +1450,7 @@ let isUnlocking = false;
         }
 
 
+        /* UPDATE DOTS */
         function updateDots() {
 
             const dots = document.querySelectorAll(".dot");
@@ -370,63 +1467,87 @@ let isUnlocking = false;
         }
 
 
-        /* =========================
-           CHECK PASSWORD
-        ========================= */
+        /* CHECK PASSWORD */
+        function checkPassword() {
 
-       
-function checkPassword() {
+            if (isUnlocking) return;
 
-    if (isUnlocking) return;
+            const message = document.getElementById("loginMessage");
+            const loginCard = document.querySelector(".login-card");
 
-    const message = document.getElementById("loginMessage");
+            if (enteredPassword !== correctPassword) {
 
-    if (enteredPassword !== correctPassword) {
-        message.textContent = "Wrong code! Try again ❤️";
-        message.style.color = "#ff6b9d";
+                message.textContent = "بجد والله بتكتبي اي غلط ؟ ❤️";
+                message.style.color = "#ff6b9d";
 
-        enteredPassword = "";
-        updateDots();
-        return;
-    }
+                /* SHAKE EFFECT */
+                loginCard.classList.remove("shake-error");
 
-    // موعد فتح الموقع: 19/11/2026
-    const unlockDate = new Date(2026, 10, 19, 0, 0, 0);
-    const now = new Date();
+                void loginCard.offsetWidth;
 
-    // فحص التاريخ فقط لو useDateLock = yes
-    if (useDateLock === "yes" && now < unlockDate) {
-        message.textContent = "استني مش هتفتح دلوقتي ❤️";
-        message.style.color = "#ffacd0";
+                loginCard.classList.add("shake-error");
 
-        enteredPassword = "";
-        updateDots();
-        return;
-    }
+                setTimeout(() => {
+                    loginCard.classList.remove("shake-error");
+                }, 500);
 
-    isUnlocking = true;
+                enteredPassword = "";
 
-    const loginPage = document.getElementById("loginPage");
-    const birthdayPage = document.getElementById("birthdayPage");
+                updateDots();
 
-    loginPage.classList.add("login-exit");
+                return;
 
-    setTimeout(() => {
-        loginPage.style.display = "none";
-        birthdayPage.style.display = "flex";
-        birthdayPage.classList.add("page-enter");
-
-        enteredPassword = "";
-        updateDots();
-
-        isUnlocking = false;
-    }, 550);
-}
+            }
 
 
+            /* UNLOCK DATE: 19/11/2026 */
+            const unlockDate = new Date(2026, 10, 19, 0, 0, 0);
 
+            const now = new Date();
+
+            if (useDateLock === "yes" && now < unlockDate) {
+
+                message.textContent = "استني مش هتفتح دلوقتي ❤️";
+
+                message.style.color = "#ffacd0";
+
+                enteredPassword = "";
+
+                updateDots();
+
+                return;
+
+            }
+
+
+            isUnlocking = true;
+
+            const loginPage = document.getElementById("loginPage");
+            const birthdayPage = document.getElementById("birthdayPage");
+
+            loginPage.classList.add("login-exit");
+
+            setTimeout(() => {
+
+                loginPage.style.display = "none";
+
+                birthdayPage.style.display = "flex";
+
+                birthdayPage.classList.add("page-enter");
+
+                enteredPassword = "";
+
+                updateDots();
+
+                isUnlocking = false;
+
+            }, 550);
+
+        }
 
     </script>
+
+    
 
 </body>
 </html>
