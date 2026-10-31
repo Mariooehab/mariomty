@@ -229,8 +229,10 @@
     <!-- ROMANTIC MUSIC PLAYER -->
 
 <audio id="backgroundMusic" loop preload="auto">
-    <source src="music/song.mp3" type="audio/mpeg">
+    
+    <source src="music/Song.mp3" type="audio/mpeg">
 </audio>
+
 
 <div class="music-widget" id="musicWidget">
 
@@ -282,9 +284,9 @@
         <i class="fa-solid fa-backward-step"></i>
     </button>
 
-    <button type="button" class="music-play" onclick="toggleMusic()">
-        <i class="fa-solid fa-play" id="musicPlayIcon"></i>
-    </button>
+   <button type="button" class="music-play" onclick="toggleMusic()">
+    <i class="fa-solid fa-play" id="musicPlayIcon"></i>
+</button>
 
     <button type="button" onclick="stopMusic()" title="Stop">
         <i class="fa-solid fa-stop"></i>
@@ -292,7 +294,7 @@
 </div>
 
         <a
-    href="music/song.mp3"
+    href="music/Song.mp3"
     download="Love U My Girl.mp3"
     class="music-download"
     title="Download Our Song"
@@ -652,171 +654,199 @@
    
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const backgroundMusic = document.getElementById("backgroundMusic");
-    const musicWidget = document.getElementById("musicWidget");
-    const musicBubble = document.getElementById("musicBubble");
-    const musicPanel = document.getElementById("musicPanel");
-    const musicPlayIcon = document.getElementById("musicPlayIcon");
-    const bubbleMusicIcon = document.getElementById("bubbleMusicIcon");
+    const audio = document.getElementById("backgroundMusic");
+    const widget = document.getElementById("musicWidget");
+    const bubble = document.getElementById("musicBubble");
+    const panel = document.getElementById("musicPanel");
+    const playIcon = document.getElementById("musicPlayIcon");
+    const bubbleIcon = document.getElementById("bubbleMusicIcon");
 
-    if (!backgroundMusic || !musicWidget || !musicBubble) return;
+    if (!audio || !widget || !bubble || !panel) return;
 
-    // MUSIC SETTINGS
-    backgroundMusic.volume = 0.5;
+    audio.volume = 0.5;
 
-    // OPEN / CLOSE PANEL
+    let isStartingMusic = false;
+
     window.toggleMusicPanel = function () {
-        musicPanel.classList.toggle("active");
+        panel.classList.toggle("active");
     };
 
-    // PLAY / PAUSE
- window.toggleMusic = function () {
-    if (backgroundMusic.paused) {
-        backgroundMusic.play().catch(error => {
-            console.error("Music error:", error);
-        });
-    } else {
-        backgroundMusic.pause();
-    }
-};
+    function updateIcons() {
+        const playing = !audio.paused;
 
-    // STOP
-    window.stopMusic = function () {
-        backgroundMusic.pause();
-        backgroundMusic.currentTime = 0;
-    };
+        widget.classList.toggle("playing", playing);
 
-    // RESTART
-    window.restartMusic = function () {
-        backgroundMusic.currentTime = 0;
-        backgroundMusic.play().catch(error => {
-            console.error("Music error:", error);
-        });
-    };
-
-    // VOLUME
-    window.changeMusicVolume = function (value) {
-        backgroundMusic.volume = Number(value);
-    };
-
-    // UPDATE PLAYER ICONS
-    function updateMusicVisuals() {
-        const playing = !backgroundMusic.paused;
-
-        musicWidget.classList.toggle("playing", playing);
-
-        if (musicPlayIcon) {
-            musicPlayIcon.className = playing
+        if (playIcon) {
+            playIcon.className = playing
                 ? "fa-solid fa-pause"
                 : "fa-solid fa-play";
         }
 
-        if (bubbleMusicIcon) {
-            bubbleMusicIcon.className = playing
+        if (bubbleIcon) {
+            bubbleIcon.className = playing
                 ? "fa-solid fa-pause"
                 : "fa-solid fa-music";
         }
     }
 
-    backgroundMusic.addEventListener("play", updateMusicVisuals);
-    backgroundMusic.addEventListener("pause", updateMusicVisuals);
-    backgroundMusic.addEventListener("ended", updateMusicVisuals);
+    // PLAY / PAUSE
+    window.toggleMusic = async function () {
+        if (isStartingMusic) return;
 
-    // DRAG MUSIC WIDGET
-    let isDragging = false;
-    let hasMoved = false;
+        if (!audio.paused) {
+            audio.pause();
+            updateIcons();
+            return;
+        }
+
+        isStartingMusic = true;
+
+        try {
+            await audio.play();
+        } catch (error) {
+            console.error("Playback failed:", error);
+        } finally {
+            isStartingMusic = false;
+            updateIcons();
+        }
+    };
+
+    // STOP
+    window.stopMusic = function () {
+        isStartingMusic = false;
+        audio.pause();
+        audio.currentTime = 0;
+        updateIcons();
+    };
+
+    // RESTART
+    window.restartMusic = async function () {
+        if (isStartingMusic) return;
+
+        isStartingMusic = true;
+
+        try {
+            audio.pause();
+            audio.currentTime = 0;
+            await audio.play();
+        } catch (error) {
+            console.error("Restart failed:", error);
+        } finally {
+            isStartingMusic = false;
+            updateIcons();
+        }
+    };
+
+    // VOLUME
+    window.changeMusicVolume = function (value) {
+        audio.volume = Number(value);
+    };
+
+    audio.addEventListener("play", updateIcons);
+    audio.addEventListener("pause", updateIcons);
+    audio.addEventListener("ended", updateIcons);
+
+    audio.addEventListener("error", () => {
+        console.error("Audio file error:", audio.error);
+    });
+
+    updateIcons();
+
+    // DRAG PLAYER
+    let dragging = false;
+    let moved = false;
     let startX = 0;
     let startY = 0;
     let startLeft = 0;
     let startTop = 0;
 
-    musicBubble.style.touchAction = "none";
+    bubble.style.touchAction = "none";
 
-    musicBubble.addEventListener("pointerdown", (e) => {
-        if (e.button !== 0 && e.pointerType === "mouse") return;
+    bubble.addEventListener("pointerdown", (e) => {
+        if (e.pointerType === "mouse" && e.button !== 0) return;
 
-        e.preventDefault();
+        dragging = true;
+        moved = false;
 
-        isDragging = true;
-        hasMoved = false;
-
-        const rect = musicWidget.getBoundingClientRect();
+        const rect = widget.getBoundingClientRect();
 
         startX = e.clientX;
         startY = e.clientY;
         startLeft = rect.left;
         startTop = rect.top;
 
-        musicWidget.style.left = rect.left + "px";
-        musicWidget.style.top = rect.top + "px";
-        musicWidget.style.right = "auto";
-        musicWidget.style.bottom = "auto";
+        widget.style.left = rect.left + "px";
+        widget.style.top = rect.top + "px";
+        widget.style.right = "auto";
+        widget.style.bottom = "auto";
 
-        musicBubble.setPointerCapture(e.pointerId);
+        bubble.setPointerCapture(e.pointerId);
     });
 
-    musicBubble.addEventListener("pointermove", (e) => {
-        if (!isDragging) return;
+    bubble.addEventListener("pointermove", (e) => {
+        if (!dragging) return;
 
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
 
         if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
-            hasMoved = true;
+            moved = true;
         }
 
-        if (!hasMoved) return;
+        if (!moved) return;
 
-        const maxX = Math.max(0, window.innerWidth - musicWidget.offsetWidth);
-        const maxY = Math.max(0, window.innerHeight - musicWidget.offsetHeight);
+        const maxX = Math.max(0, innerWidth - widget.offsetWidth);
+        const maxY = Math.max(0, innerHeight - widget.offsetHeight);
 
-        const left = Math.max(0, Math.min(maxX, startLeft + dx));
-        const top = Math.max(0, Math.min(maxY, startTop + dy));
+        widget.style.left =
+            Math.max(0, Math.min(maxX, startLeft + dx)) + "px";
 
-        musicWidget.style.left = left + "px";
-        musicWidget.style.top = top + "px";
+        widget.style.top =
+            Math.max(0, Math.min(maxY, startTop + dy)) + "px";
     });
 
-    function endDragging() {
-        if (!isDragging) return;
+    function endDrag() {
+        if (!dragging) return;
 
-        isDragging = false;
+        dragging = false;
 
-        if (hasMoved) {
-            musicBubble.dataset.dragged = "true";
+        if (moved) {
+            bubble.dataset.dragged = "true";
 
             setTimeout(() => {
-                delete musicBubble.dataset.dragged;
+                delete bubble.dataset.dragged;
             }, 300);
         }
     }
 
-    musicBubble.addEventListener("pointerup", endDragging);
-    musicBubble.addEventListener("pointercancel", endDragging);
+    bubble.addEventListener("pointerup", endDrag);
+    bubble.addEventListener("pointercancel", endDrag);
 
-    // PREVENT OPENING PANEL AFTER DRAGGING
-    musicBubble.addEventListener("click", (e) => {
-        if (musicBubble.dataset.dragged === "true") {
+    bubble.addEventListener("click", (e) => {
+        if (bubble.dataset.dragged === "true") {
             e.preventDefault();
             e.stopImmediatePropagation();
         }
     }, true);
 
-    // KEEP WIDGET INSIDE THE SCREEN AFTER RESIZING
+    // KEEP PLAYER INSIDE SCREEN
     window.addEventListener("resize", () => {
-        if (!musicWidget.style.left || !musicWidget.style.top) return;
+        const maxX = Math.max(0, innerWidth - widget.offsetWidth);
+        const maxY = Math.max(0, innerHeight - widget.offsetHeight);
 
-        const maxX = Math.max(0, window.innerWidth - musicWidget.offsetWidth);
-        const maxY = Math.max(0, window.innerHeight - musicWidget.offsetHeight);
+        if (widget.style.left) {
+            widget.style.left =
+                Math.min(parseFloat(widget.style.left), maxX) + "px";
+        }
 
-        musicWidget.style.left =
-            Math.min(parseFloat(musicWidget.style.left), maxX) + "px";
-
-        musicWidget.style.top =
-            Math.min(parseFloat(musicWidget.style.top), maxY) + "px";
+        if (widget.style.top) {
+            widget.style.top =
+                Math.min(parseFloat(widget.style.top), maxY) + "px";
+        }
     });
 });
 </script>
+
 
 
 
